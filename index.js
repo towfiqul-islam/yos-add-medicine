@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
+require('dotenv').config({path: 'variables.env'});
+
 const connection = require('./startup/db');
 require('./startup/routes')(app);
 

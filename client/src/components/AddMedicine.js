@@ -31,7 +31,7 @@ const AddMedicine = () => {
 
     const formData = new FormData(myForm);
 
-    await axios.post('http://localhost:8000', formData, {
+    await axios.post('/', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

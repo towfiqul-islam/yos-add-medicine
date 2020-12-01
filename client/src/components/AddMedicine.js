@@ -34,9 +34,19 @@ const AddMedicine = () => {
 
     // const formData = new FormData(myForm);
     try {
-      const res = await axios.post('/', med);
-      if (res.data.id) {
-        alert('Medicine added!!!');
+      if (
+        trade_name !== '' &&
+        generic_name !== '' &&
+        company_name !== '' &&
+        unit_price !== 0 &&
+        medicine_type !== ''
+      ) {
+        const res = await axios.post('/', med);
+        if (res.data.id) {
+          alert('Medicine added!!!');
+        }
+      } else {
+        alert('Fill the form properly!!');
       }
     } catch (err) {
       console.error('Something went wrong!!', err);

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import history from '../history';
 
 const AllMedicines = () => {
   const [data, setData] = useState([]);
@@ -15,7 +16,8 @@ const AllMedicines = () => {
     return data;
   }
   const onEdit = id => {
-    console.log(id);
+    // console.log(id);
+    history.push(`/update/${id}`);
   };
   return (
     <div style={{width: '1200px'}} className='mx-auto'>

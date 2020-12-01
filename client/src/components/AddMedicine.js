@@ -2,16 +2,16 @@ import React, {useState} from 'react';
 import axios from 'axios';
 
 const AddMedicine = () => {
-  const [selected, setSelected] = useState('no');
+  // const [selected, setSelected] = useState('no');
   const [med, setMed] = useState({
     trade_name: '',
     generic_name: '',
     company_name: '',
     unit_price: 0,
-    discount_price: 0,
+    // discount_price: 0,
     description: '',
     medicine_type: '',
-    over_the_counter: selected,
+    // over_the_counter: selected,
     image: '',
   });
   const {
@@ -19,8 +19,8 @@ const AddMedicine = () => {
     generic_name,
     company_name,
     unit_price,
-    discount_price,
-    description,
+    // discount_price,
+    // description,
     medicine_type,
     image,
   } = med;
@@ -38,12 +38,13 @@ const AddMedicine = () => {
         trade_name !== '' &&
         generic_name !== '' &&
         company_name !== '' &&
-        unit_price !== 0 &&
+        unit_price > 0 &&
         medicine_type !== ''
       ) {
         const res = await axios.post('/', med);
         if (res.data.id) {
           alert('Medicine added!!!');
+          window.location.reload();
         }
       } else {
         alert('Fill the form properly!!');
@@ -53,14 +54,14 @@ const AddMedicine = () => {
       alert('Something went wrong!!');
     }
   };
-  const onRadioChange = e => {
-    if (e.target.value === 'no') {
-      setSelected('no');
-    } else if (e.target.value === 'yes') {
-      setSelected('yes');
-    }
-    setMed({...med, over_the_counter: e.target.value});
-  };
+  // const onRadioChange = e => {
+  //   if (e.target.value === 'no') {
+  //     setSelected('no');
+  //   } else if (e.target.value === 'yes') {
+  //     setSelected('yes');
+  //   }
+  //   setMed({...med, over_the_counter: e.target.value});
+  // };
 
   const [file, setFile] = useState('');
 
@@ -124,7 +125,7 @@ const AddMedicine = () => {
           value={unit_price}
           onChange={onChange}
         />
-        <label className='mr-2 mt-8 block' htmlFor='discount_price'>
+        {/* <label className='mr-2 mt-8 block' htmlFor='discount_price'>
           Discount price
         </label>
         <input
@@ -134,8 +135,8 @@ const AddMedicine = () => {
           name='discount_price'
           value={discount_price}
           onChange={onChange}
-        />
-        <label className='mr-2 mt-8 block' htmlFor='description'>
+        /> */}
+        {/* <label className='mr-2 mt-8 block' htmlFor='description'>
           Description
         </label>
         <textarea
@@ -145,7 +146,7 @@ const AddMedicine = () => {
           name='description'
           value={description}
           onChange={onChange}
-        ></textarea>
+        ></textarea> */}
         <label className='mr-2 mt-8 block' htmlFor='medicine_type'>
           Medicine type
         </label>
@@ -157,7 +158,7 @@ const AddMedicine = () => {
           value={medicine_type}
           onChange={onChange}
         />
-        <div className='mt-8'>
+        {/* <div className='mt-8'>
           <h4>Over the counter</h4>
           <div className='mt-4'>
             <input
@@ -183,7 +184,7 @@ const AddMedicine = () => {
             />
             <label htmlFor='no'>No</label>
           </div>
-        </div>
+        </div> */}
         <label className='mr-2 mt-8 block' htmlFor='photo'>
           Image
         </label>

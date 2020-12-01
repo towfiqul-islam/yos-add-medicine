@@ -201,7 +201,7 @@ const AddMedicine = () => {
 
         {image !== '' && (
           <img
-            className='mt-2'
+            className='mt-4'
             src={image}
             width='100px'
             height='100px'
@@ -216,12 +216,12 @@ const AddMedicine = () => {
         )}
 
         {image === '' && file !== '' ? (
-          <div className='inline-block bg-gray-400 text-gray-300 px-4 py-1 mt-8 rounded'>
+          <div className='inline-block bg-gray-400 text-gray-300 px-4 py-1 mt-8 rounded mb-10'>
             Submit
           </div>
         ) : (
           <input
-            className='block bg-blue-400 px-4 py-1 mt-8 rounded'
+            className='block bg-blue-400 px-4 py-1 mt-8 rounded mb-10'
             type='submit'
             value='Submit'
           />

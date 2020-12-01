@@ -12,6 +12,7 @@ const AddMedicine = () => {
     description: '',
     medicine_type: '',
     over_the_counter: selected,
+    image: '',
   });
   const {
     trade_name,
@@ -21,21 +22,19 @@ const AddMedicine = () => {
     discount_price,
     description,
     medicine_type,
+    image,
   } = med;
   const onChange = e => {
     setMed({...med, [e.target.name]: e.target.value});
   };
   const onSubmit = async e => {
     e.preventDefault();
-    const myForm = document.getElementById('myForm');
+    // const myForm = document.getElementById('myForm');
+    // console.log(file);
 
-    const formData = new FormData(myForm);
+    // const formData = new FormData(myForm);
 
-    await axios.post('/', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    await axios.post('/', med);
   };
   const onRadioChange = e => {
     if (e.target.value === 'no') {
@@ -44,6 +43,20 @@ const AddMedicine = () => {
       setSelected('yes');
     }
     setMed({...med, over_the_counter: e.target.value});
+  };
+
+  const [file, setFile] = useState('');
+
+  const onFileChange = async e => {
+    setFile(e.target.files[0]);
+    const formData = new FormData();
+    formData.append('file', e.target.files[0]);
+    formData.append('upload_preset', 'yos-medicine');
+    const res = await axios.post(
+      'https://api.cloudinary.com/v1_1/yos/image/upload',
+      formData,
+    );
+    setMed({...med, image: res.data.secure_url});
   };
 
   return (
@@ -156,7 +169,27 @@ const AddMedicine = () => {
         <label className='mr-2 mt-8 block' htmlFor='photo'>
           Image
         </label>
-        <input type='file' name='photo' id='photo' />
+        <input
+          className='mt-1'
+          type='file'
+          name='photo'
+          id='photo'
+          onChange={onFileChange}
+        />
+
+        {image !== '' ? (
+          <img
+            className='mt-2'
+            src={image}
+            width='100px'
+            height='100px'
+            alt=''
+          />
+        ) : (
+          <p className='mt-4 text-gray-500'>
+            Uplaoded image preview will be shown here
+          </p>
+        )}
 
         <input
           className='block bg-blue-400 px-4 py-1 mt-8 rounded'

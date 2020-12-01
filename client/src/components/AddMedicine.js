@@ -33,8 +33,15 @@ const AddMedicine = () => {
     // console.log(file);
 
     // const formData = new FormData(myForm);
-
-    await axios.post('/', med);
+    try {
+      const res = await axios.post('/', med);
+      if (res.data.id) {
+        alert('Medicine added!!!');
+      }
+    } catch (err) {
+      console.error('Something went wrong!!', err);
+      alert('Something went wrong!!');
+    }
   };
   const onRadioChange = e => {
     if (e.target.value === 'no') {
@@ -177,7 +184,11 @@ const AddMedicine = () => {
           onChange={onFileChange}
         />
 
-        {image !== '' ? (
+        {image === '' && file !== '' && (
+          <p className='mt-4 text-gray-500'>Image is being uploaded ...</p>
+        )}
+
+        {image !== '' && (
           <img
             className='mt-2'
             src={image}
@@ -185,17 +196,25 @@ const AddMedicine = () => {
             height='100px'
             alt=''
           />
-        ) : (
+        )}
+
+        {image === '' && file === '' && (
           <p className='mt-4 text-gray-500'>
             Uplaoded image preview will be shown here
           </p>
         )}
 
-        <input
-          className='block bg-blue-400 px-4 py-1 mt-8 rounded'
-          type='submit'
-          value='Submit'
-        />
+        {image === '' && file !== '' ? (
+          <div className='inline-block bg-gray-400 text-gray-300 px-4 py-1 mt-8 rounded'>
+            Submit
+          </div>
+        ) : (
+          <input
+            className='block bg-blue-400 px-4 py-1 mt-8 rounded'
+            type='submit'
+            value='Submit'
+          />
+        )}
       </form>
     </div>
   );

@@ -77,24 +77,25 @@ const AddMedicine = () => {
   };
 
   return (
-    <div className='mx-auto w-1/2 mb-12'>
+    <div style={{width: '1000px'}} className='mx-auto'>
       <form id='myForm' onSubmit={onSubmit}>
         <label className='mr-2 mt-8 block' htmlFor='trade_name'>
           Trade name
         </label>
         <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-64'
+          className='inline-block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
           type='text'
           id='trade_name'
           name='trade_name'
           value={trade_name}
           onChange={onChange}
         />
+
         <label className='mr-2 mt-8 block' htmlFor='generic_name'>
           Generic name
         </label>
         <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-64'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
           type='text'
           id='generic_name'
           name='generic_name'
@@ -105,7 +106,7 @@ const AddMedicine = () => {
           Company name
         </label>
         <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-64'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
           type='text'
           id='company_name'
           name='company_name'
@@ -116,7 +117,7 @@ const AddMedicine = () => {
           Unit price
         </label>
         <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-64'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
           type='number'
           id='unit_price'
           name='unit_price'
@@ -127,7 +128,7 @@ const AddMedicine = () => {
           Discount price
         </label>
         <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-64'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
           type='number'
           id='discount_price'
           name='discount_price'
@@ -138,7 +139,7 @@ const AddMedicine = () => {
           Description
         </label>
         <textarea
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-64'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
           type=''
           id='description'
           name='description'
@@ -149,7 +150,7 @@ const AddMedicine = () => {
           Medicine type
         </label>
         <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-64'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
           type='text'
           id='medicine_type'
           name='medicine_type'

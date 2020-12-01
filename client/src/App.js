@@ -7,7 +7,7 @@ import Nav from './components/Nav';
 import UpdateMedicine from './components/UpdateMedicine';
 import history from './history';
 
-function App() {
+const App = () => {
   return (
     <Router history={history}>
       <Nav />
@@ -18,6 +18,6 @@ function App() {
       </Switch>
     </Router>
   );
-}
+};
 
 export default App;

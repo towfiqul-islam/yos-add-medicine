@@ -79,7 +79,7 @@ const UpdateMedicine = () => {
   };
   return (
     <div style={{width: '1000px'}} className='mx-auto'>
-      <h2 className='text-center'>Update Medicine - {id}</h2>
+      <h2 className='text-center text-lg mt-2'>Update Medicine</h2>
       <form id='myForm' onSubmit={onSubmit}>
         <label className='mr-2 mt-8 block' htmlFor='trade_name'>
           Trade name

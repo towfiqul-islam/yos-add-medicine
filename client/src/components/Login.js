@@ -14,7 +14,7 @@ const Login = () => {
     setAdmin({...admin, [e.target.name]: e.target.value});
   };
   const onLogin = async () => {
-    if (username === 'admin' && password === 'admin') {
+    if (username === 'admin' && password === 'pharmacy#Online$20#$53') {
       const res = await axios.post('/login', admin);
       if (res.data.msg === 'login successful') {
         localStorage.setItem('login', 'success');

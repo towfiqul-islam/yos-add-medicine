@@ -5,7 +5,7 @@ router.post('/', async (req, res) => {
   try {
     const username = req.body.username;
     const password = req.body.password;
-    if (username === 'admin' && password === 'admin') {
+    if (username === 'admin' && password === 'pharmacy#Online$20#$53') {
       res.header('token', 'success').json({msg: 'login successful'});
     }
   } catch (err) {

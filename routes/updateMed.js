@@ -13,6 +13,7 @@ function updateMed(id, fields) {
 
 router.put('/:id', async (req, res) => {
   try {
+    req.body.unit_price = req.body.packet_price / req.body.size_of_packet;
     const affected_rows = await updateMed(req.params.id, req.body);
     res.json({affectedRows: affected_rows});
   } catch (err) {

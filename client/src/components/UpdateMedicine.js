@@ -9,7 +9,9 @@ const UpdateMedicine = () => {
     trade_name: '',
     generic_name: '',
     company_name: '',
-    unit_price: 0,
+
+    size_of_packet: 0,
+    packet_price: 0,
     discount_price: 0,
     description: '',
     medicine_type: '',
@@ -19,7 +21,9 @@ const UpdateMedicine = () => {
     trade_name,
     generic_name,
     company_name,
-    unit_price,
+
+    size_of_packet,
+    packet_price,
     discount_price,
     description,
     medicine_type,
@@ -41,8 +45,19 @@ const UpdateMedicine = () => {
     setMed(res.data);
     console.log(med);
   }
-  const onChange = e => {
+  const [genericNames, setGenericNames] = useState([]);
+  const [companyNames, setCompanyNames] = useState([]);
+  const onChange = async e => {
     setMed({...med, [e.target.name]: e.target.value});
+    if (e.target.name === 'generic_name') {
+      const res = await axios.get(`/search_by_generic_name/${e.target.value}`);
+      // console.log(res.data.data);
+      setGenericNames(res.data.data); // temporary data storage
+    } else if (e.target.name === 'company_name') {
+      const res = await axios.get(`/search_by_company_name/${e.target.value}`);
+      // console.log(res.data.data);
+      setCompanyNames(res.data.data); // temporary data storage
+    }
   };
   const onSubmit = async e => {
     e.preventDefault();
@@ -52,7 +67,8 @@ const UpdateMedicine = () => {
         trade_name !== '' &&
         generic_name !== '' &&
         company_name !== '' &&
-        unit_price > 0 &&
+        packet_price > 0 &&
+        size_of_packet > 0 &&
         medicine_type !== ''
       ) {
         const res = await axios.put(`/update/${id}`, med);
@@ -116,6 +132,20 @@ const UpdateMedicine = () => {
           value={generic_name}
           onChange={onChange}
         />
+        {genericNames !== undefined &&
+          genericNames.length > 0 &&
+          genericNames.map((name, index) => (
+            <p
+              className='bg-gray-100 px-2 py-1 mt-2 cursor-pointer w-1/2 hover:bg-gray-300'
+              onClick={() => {
+                setMed({...med, generic_name: name.generic_name});
+                setGenericNames([]);
+              }}
+              key={index}
+            >
+              {name.generic_name}
+            </p>
+          ))}
         <label className='mr-2 mt-8 block' htmlFor='company_name'>
           Company name
         </label>
@@ -127,15 +157,42 @@ const UpdateMedicine = () => {
           value={company_name}
           onChange={onChange}
         />
-        <label className='mr-2 mt-8 block' htmlFor='unit_price'>
-          Unit price
+
+        {companyNames !== undefined &&
+          companyNames.length > 0 &&
+          companyNames.map((name, index) => (
+            <p
+              className='bg-gray-100 px-2 py-1 mt-2 cursor-pointer w-1/2 hover:bg-gray-300'
+              onClick={() => {
+                setMed({...med, company_name: name.company_name});
+                setCompanyNames([]);
+              }}
+              key={index}
+            >
+              {name.company_name}
+            </p>
+          ))}
+
+        <label className='mr-2 mt-8 block' htmlFor='packet_price'>
+          Packet price
         </label>
         <input
           className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
           type='number'
-          id='unit_price'
-          name='unit_price'
-          value={unit_price}
+          id='packet_price'
+          name='packet_price'
+          value={packet_price}
+          onChange={onChange}
+        />
+        <label className='mr-2 mt-8 block' htmlFor='size_of_packet'>
+          Size of packet
+        </label>
+        <input
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
+          type='number'
+          id='size_of_packet'
+          name='size_of_packet'
+          value={size_of_packet}
           onChange={onChange}
         />
         <label className='mr-2 mt-8 block' htmlFor='discount_price'>

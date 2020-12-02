@@ -27,7 +27,12 @@ const UpdateMedicine = () => {
   } = med;
   const {id} = useParams();
   useEffect(() => {
-    getSingleMed(id);
+    const login = localStorage.getItem('login');
+    if (login === 'success') {
+      getSingleMed(id);
+    } else {
+      history.push('/login');
+    }
 
     // eslint-disable-next-line
   }, []);

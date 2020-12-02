@@ -38,7 +38,12 @@ const AllMedicines = () => {
     }
   };
   useEffect(() => {
-    getAllMedicines();
+    const login = localStorage.getItem('login');
+    if (login === 'success') {
+      getAllMedicines();
+    } else {
+      history.push('/login');
+    }
 
     // eslint-disable-next-line
   }, []);

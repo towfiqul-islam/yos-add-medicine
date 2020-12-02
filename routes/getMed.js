@@ -18,9 +18,23 @@ function getSingleMed(id) {
     });
   });
 }
+function getMedByTradeName(name) {
+  return new Promise(function (resolve, reject) {
+    const sql = `SELECT * FROM medicines WHERE trade_name LIKE '%${name}%'`;
+    connection.query(sql, (err, results) => {
+      resolve(results);
+    });
+  });
+}
 router.get('/get_all', async (req, res) => {
   const data = await getMeds();
   res.send(data);
+});
+
+router.get('/search/:trade_name', async (req, res) => {
+  // const trade_name = new RegExp(`.*${req.params.trade_name}.*`, 'i');
+  const data = await getMedByTradeName(req.params.trade_name);
+  res.json({data});
 });
 
 router.get('/get_single/:id', async (req, res) => {

@@ -76,10 +76,17 @@ const UpdateMedicine = () => {
       formData,
     );
     setMed({...med, image: res.data.secure_url});
+    setFile('');
+  };
+  const onSelect = e => {
+    // setMedType(e.target.value);
+    setMed({...med, medicine_type: e.target.value});
   };
   return (
     <div style={{width: '1000px'}} className='mx-auto'>
-      <h2 className='text-center text-lg mt-2'>Update Medicine</h2>
+      <h2 className='text-center text-xl text-gray-700 mt-12'>
+        Update Medicine
+      </h2>
       <form id='myForm' onSubmit={onSubmit}>
         <label className='mr-2 mt-8 block' htmlFor='trade_name'>
           Trade name
@@ -147,18 +154,25 @@ const UpdateMedicine = () => {
           name='description'
           value={description}
           onChange={onChange}
+          rows='10'
         ></textarea>
         <label className='mr-2 mt-8 block' htmlFor='medicine_type'>
           Medicine type
         </label>
-        <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
-          type='text'
-          id='medicine_type'
-          name='medicine_type'
+        <select
+          className='py-2 px-1 border rounded bg-gray-200 w-1/2'
+          onChange={onSelect}
           value={medicine_type}
-          onChange={onChange}
-        />
+        >
+          <option value='Tablet'>Tablet</option>
+          <option value='Capsule'>Capsule</option>
+          <option value='Sachets'>Sachets</option>
+          <option value='Powder'>Powder</option>
+          <option value='Suspension'>Suspension</option>
+          <option value='Syrup'>Syrup</option>
+          <option value='Injection'>Injection</option>
+          <option value='Suppository'>Suppository</option>
+        </select>
 
         <label className='mr-2 mt-8 block' htmlFor='photo'>
           Image
@@ -174,8 +188,11 @@ const UpdateMedicine = () => {
         {image === '' && file !== '' && (
           <p className='mt-4 text-gray-500'>Image is being uploaded ...</p>
         )}
+        {image !== '' && file !== '' && (
+          <p className='mt-4 text-gray-500'>Image is being updated ...</p>
+        )}
 
-        {image !== '' && (
+        {image !== '' && file === '' && (
           <img
             className='mt-4'
             src={image}
@@ -191,7 +208,7 @@ const UpdateMedicine = () => {
           </p>
         )}
 
-        {image === '' && file !== '' ? (
+        {(image === '' && file !== '') || (image !== '' && file !== '') ? (
           <div className='inline-block bg-gray-400 text-gray-300 px-4 py-1 mt-8 rounded mb-10'>
             Submit
           </div>

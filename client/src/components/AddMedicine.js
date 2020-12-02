@@ -3,6 +3,12 @@ import axios from 'axios';
 
 const AddMedicine = () => {
   // const [selected, setSelected] = useState('no');
+  const [medType, setMedType] = useState('Tablet');
+  const onSelect = e => {
+    setMedType(e.target.value);
+
+    setMed({...med, medicine_type: e.target.value});
+  };
   const [med, setMed] = useState({
     trade_name: '',
     generic_name: '',
@@ -10,7 +16,7 @@ const AddMedicine = () => {
     unit_price: 0,
     // discount_price: 0,
     description: '',
-    medicine_type: '',
+    medicine_type: medType,
     // over_the_counter: selected,
     image: '',
   });
@@ -150,14 +156,29 @@ const AddMedicine = () => {
         <label className='mr-2 mt-8 block' htmlFor='medicine_type'>
           Medicine type
         </label>
-        <input
+        <select
+          className='py-2 px-1 border rounded bg-gray-200 w-1/2'
+          onChange={onSelect}
+          value={medType}
+        >
+          <option value='Tablet'>Tablet</option>
+          <option value='Capsule'>Capsule</option>
+          <option value='Sachets'>Sachets</option>
+          <option value='Powder'>Powder</option>
+          <option value='Suspension'>Suspension</option>
+          <option value='Syrup'>Syrup</option>
+          <option value='Injection'>Injection</option>
+          <option value='Suppository'>Suppository</option>
+        </select>
+
+        {/* <input
           className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
           type='text'
           id='medicine_type'
           name='medicine_type'
           value={medicine_type}
           onChange={onChange}
-        />
+        /> */}
         {/* <div className='mt-8'>
           <h4>Over the counter</h4>
           <div className='mt-4'>

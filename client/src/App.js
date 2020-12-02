@@ -1,11 +1,11 @@
 import React from 'react';
+// import './App.css';
 import {Router, Route, Switch} from 'react-router-dom';
-import './App.css';
+import history from './history';
 import AddMedicine from './components/AddMedicine';
 import AllMedicines from './components/AllMedicines';
-import Nav from './components/Nav';
 import UpdateMedicine from './components/UpdateMedicine';
-import history from './history';
+import Nav from './components/Nav';
 
 const App = () => {
   return (

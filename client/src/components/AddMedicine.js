@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import history from '../history';
 
 const AddMedicine = () => {
   // const [selected, setSelected] = useState('no');
@@ -82,6 +83,13 @@ const AddMedicine = () => {
     );
     setMed({...med, image: res.data.secure_url});
   };
+
+  useEffect(() => {
+    const login = localStorage.getItem('login');
+    if (login !== 'success') {
+      history.push('/login');
+    }
+  });
 
   return (
     <div style={{width: '1000px'}} className='mx-auto'>

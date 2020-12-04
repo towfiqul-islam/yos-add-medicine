@@ -5,6 +5,7 @@ import axios from 'axios';
 import history from '../history';
 
 const UpdateMedicine = () => {
+  const [selected, setSelected] = useState('no');
   const [med, setMed] = useState({
     trade_name: '',
     generic_name: '',
@@ -15,6 +16,7 @@ const UpdateMedicine = () => {
     discount_price: 0,
     description: '',
     medicine_type: '',
+    over_the_counter: selected,
     image: '',
   });
   const {
@@ -43,7 +45,8 @@ const UpdateMedicine = () => {
   async function getSingleMed(id) {
     const res = await axios.get(`/get_single/${id}`);
     setMed(res.data);
-    console.log(med);
+    setSelected(res.data.over_the_counter);
+    // console.log(med);
   }
   const [genericNames, setGenericNames] = useState([]);
   const [companyNames, setCompanyNames] = useState([]);
@@ -102,6 +105,14 @@ const UpdateMedicine = () => {
   const onSelect = e => {
     // setMedType(e.target.value);
     setMed({...med, medicine_type: e.target.value});
+  };
+  const onRadioChange = e => {
+    if (e.target.value === 'no') {
+      setSelected('no');
+    } else if (e.target.value === 'yes') {
+      setSelected('yes');
+    }
+    setMed({...med, over_the_counter: e.target.value});
   };
   return (
     <div style={{width: '1000px'}} className='mx-auto'>
@@ -195,6 +206,33 @@ const UpdateMedicine = () => {
           value={size_of_packet}
           onChange={onChange}
         />
+        <div className='mt-8'>
+          <h4>Over the counter</h4>
+          <div className='mt-4'>
+            <input
+              className='border border-black bg-gray-100 rounded-sm px-2 py-1 mr-2'
+              type='radio'
+              id='yes'
+              name='over_the_counter'
+              value='yes'
+              checked={selected === 'yes'}
+              onChange={onRadioChange}
+            />
+            <label className='mr-8' htmlFor='yes'>
+              Yes
+            </label>
+            <input
+              className='border border-black bg-gray-100 rounded-sm px-2 py-1 mr-2'
+              type='radio'
+              id='no'
+              name='over_the_counter'
+              value='no'
+              checked={selected === 'no'}
+              onChange={onRadioChange}
+            />
+            <label htmlFor='no'>No</label>
+          </div>
+        </div>
         <label className='mr-2 mt-8 block' htmlFor='discount_price'>
           Discount price
         </label>

@@ -3,7 +3,7 @@ import axios from 'axios';
 import history from '../history';
 
 const AddMedicine = () => {
-  // const [selected, setSelected] = useState('no');
+  const [selected, setSelected] = useState('no');
   const [medType, setMedType] = useState('Tablet');
   const onSelect = e => {
     setMedType(e.target.value);
@@ -20,7 +20,7 @@ const AddMedicine = () => {
     // discount_price: 0,
     description: '',
     medicine_type: medType,
-    // over_the_counter: selected,
+    over_the_counter: selected,
     image: '',
   });
   const {
@@ -77,14 +77,14 @@ const AddMedicine = () => {
       alert('Something went wrong!!');
     }
   };
-  // const onRadioChange = e => {
-  //   if (e.target.value === 'no') {
-  //     setSelected('no');
-  //   } else if (e.target.value === 'yes') {
-  //     setSelected('yes');
-  //   }
-  //   setMed({...med, over_the_counter: e.target.value});
-  // };
+  const onRadioChange = e => {
+    if (e.target.value === 'no') {
+      setSelected('no');
+    } else if (e.target.value === 'yes') {
+      setSelected('yes');
+    }
+    setMed({...med, over_the_counter: e.target.value});
+  };
 
   const [file, setFile] = useState('');
 
@@ -242,7 +242,7 @@ const AddMedicine = () => {
           value={medicine_type}
           onChange={onChange}
         /> */}
-        {/* <div className='mt-8'>
+        <div className='mt-8'>
           <h4>Over the counter</h4>
           <div className='mt-4'>
             <input
@@ -268,7 +268,7 @@ const AddMedicine = () => {
             />
             <label htmlFor='no'>No</label>
           </div>
-        </div> */}
+        </div>
         <label className='mr-2 mt-8 block' htmlFor='photo'>
           Image
         </label>

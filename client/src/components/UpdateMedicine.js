@@ -50,6 +50,7 @@ const UpdateMedicine = () => {
   }
   const [genericNames, setGenericNames] = useState([]);
   const [companyNames, setCompanyNames] = useState([]);
+  const [medicineType, setMedicineType] = useState([]);
   const onChange = async e => {
     setMed({...med, [e.target.name]: e.target.value});
     if (e.target.name === 'generic_name') {
@@ -60,6 +61,10 @@ const UpdateMedicine = () => {
       const res = await axios.get(`/search_by_company_name/${e.target.value}`);
       // console.log(res.data.data);
       setCompanyNames(res.data.data); // temporary data storage
+    } else if (e.target.name === 'medicine_type') {
+      const res = await axios.get(`/search_by_medicine_type/${e.target.value}`);
+      // console.log(res.data.data);
+      setMedicineType(res.data.data); // temporary data storage
     }
   };
   const onSubmit = async e => {
@@ -102,10 +107,10 @@ const UpdateMedicine = () => {
     setMed({...med, image: res.data.secure_url});
     setFile('');
   };
-  const onSelect = e => {
-    // setMedType(e.target.value);
-    setMed({...med, medicine_type: e.target.value});
-  };
+  // const onSelect = e => {
+  // setMedType(e.target.value);
+  // setMed({...med, medicine_type: e.target.value});
+  // };
   const onRadioChange = e => {
     if (e.target.value === 'no') {
       setSelected('no');
@@ -259,6 +264,32 @@ const UpdateMedicine = () => {
         <label className='mr-2 mt-8 block' htmlFor='medicine_type'>
           Medicine type
         </label>
+
+        <input
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
+          type='text'
+          id='medicine_type'
+          name='medicine_type'
+          value={medicine_type}
+          onChange={onChange}
+        />
+        {medicineType !== undefined &&
+          medicineType.length > 0 &&
+          medicineType.map((name, index) => (
+            <p
+              className='bg-gray-100 px-2 py-1 mt-2 cursor-pointer w-1/2 hover:bg-gray-300'
+              onClick={() => {
+                setMed({...med, medicine_type: name.medicine_type});
+                setCompanyNames([]);
+              }}
+              key={index}
+            >
+              {name.medicine_type}
+            </p>
+          ))}
+        {/* <label className='mr-2 mt-8 block' htmlFor='medicine_type'>
+          Medicine type
+        </label>
         <select
           className='py-2 px-1 border rounded bg-gray-200 w-1/2'
           onChange={onSelect}
@@ -272,7 +303,7 @@ const UpdateMedicine = () => {
           <option value='Syrup'>Syrup</option>
           <option value='Injection'>Injection</option>
           <option value='Suppository'>Suppository</option>
-        </select>
+        </select> */}
 
         <label className='mr-2 mt-8 block' htmlFor='photo'>
           Image

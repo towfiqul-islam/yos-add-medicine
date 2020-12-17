@@ -16,6 +16,9 @@ const Nav = () => {
       <Link className='mr-12' to='/all'>
         All Medicines
       </Link>
+      <Link className='mr-12' to='/guest-orders'>
+        Guest Orders
+      </Link>
       <button onClick={onLogout}>Logout</button>
     </div>
   );

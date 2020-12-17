@@ -256,7 +256,7 @@ const AddMedicine = () => {
               className='bg-gray-100 px-2 py-1 mt-2 cursor-pointer w-1/2 hover:bg-gray-300'
               onClick={() => {
                 setMed({...med, medicine_type: name.medicine_type});
-                setCompanyNames([]);
+                setMedicineType([]);
               }}
               key={index}
             >

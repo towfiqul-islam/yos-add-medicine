@@ -133,12 +133,18 @@ const UpdateOrder = () => {
         name='total_amount'
         value={total_amount}
       />
-      <button
-        className='px-4 py-1 bg-blue-400 rounded block mt-6'
-        onClick={onUpdate}
-      >
-        Update order
-      </button>
+      {image !== '' && customer_prescription === '' ? (
+        <button className='px-4 py-1 bg-blue-100 text-gray-300 rounded block mt-6 cursor-default'>
+          Update order
+        </button>
+      ) : (
+        <button
+          className='px-4 py-1 bg-blue-300 rounded block mt-6'
+          onClick={onUpdate}
+        >
+          Update order
+        </button>
+      )}
     </div>
   );
 };

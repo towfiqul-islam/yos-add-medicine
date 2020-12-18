@@ -113,13 +113,14 @@ const AddMedicine = () => {
   });
 
   return (
-    <div style={{width: '1000px'}} className='mx-auto'>
+    <div className='mx-auto sm:w-3/4 w-11/12'>
+      <h2 className='text-center text-xl text-gray-700 mt-4'>Add Medicine</h2>
       <form id='myForm' onSubmit={onSubmit}>
         <label className='mr-2 mt-8 block' htmlFor='trade_name'>
           Trade name
         </label>
         <input
-          className='inline-block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
+          className='inline-block border border-black bg-gray-100 rounded-sm px-2 py-1 sm:w-1/2 w-full'
           type='text'
           id='trade_name'
           name='trade_name'
@@ -131,7 +132,7 @@ const AddMedicine = () => {
           Generic name
         </label>
         <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 sm:w-1/2 w-full'
           type='text'
           id='generic_name'
           name='generic_name'
@@ -142,7 +143,7 @@ const AddMedicine = () => {
           genericNames.length > 0 &&
           genericNames.map((name, index) => (
             <p
-              className='bg-gray-100 px-2 py-1 mt-2 cursor-pointer w-1/2 hover:bg-gray-300'
+              className='bg-gray-100 px-2 py-1 mt-2 cursor-pointer sm:w-1/2 w-full hover:bg-gray-300'
               onClick={() => {
                 setMed({...med, generic_name: name.generic_name});
                 setGenericNames([]);
@@ -156,7 +157,7 @@ const AddMedicine = () => {
           Company name
         </label>
         <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 sm:w-1/2 w-full'
           type='text'
           id='company_name'
           name='company_name'
@@ -181,7 +182,7 @@ const AddMedicine = () => {
           Packet price
         </label>
         <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 sm:w-1/2 w-full'
           type='number'
           id='packet_price'
           name='packet_price'
@@ -192,7 +193,7 @@ const AddMedicine = () => {
           Size of packet
         </label>
         <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 sm:w-1/2 w-full'
           type='number'
           id='size_of_packet'
           name='size_of_packet'
@@ -242,7 +243,7 @@ const AddMedicine = () => {
         </label>
 
         <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 sm:w-1/2 w-full'
           type='text'
           id='medicine_type'
           name='medicine_type'

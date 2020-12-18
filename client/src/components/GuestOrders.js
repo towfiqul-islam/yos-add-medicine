@@ -17,7 +17,10 @@ const GuestOrders = () => {
     history.push(`/update-order/${id}`);
   };
   return (
-    <div>
+    <div className='mx-auto w-11/12'>
+      <h2 className=' text-gray-700 text-xl my-5'>
+        Guest Orders... Sorted by most recent
+      </h2>
       <table className='table-fixed pt-8'>
         <thead className='text-sm'>
           <tr>

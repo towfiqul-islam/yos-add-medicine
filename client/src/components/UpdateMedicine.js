@@ -120,7 +120,7 @@ const UpdateMedicine = () => {
     setMed({...med, over_the_counter: e.target.value});
   };
   return (
-    <div style={{width: '1000px'}} className='mx-auto'>
+    <div className='mx-auto sm:w-3/4 w-11/12'>
       <h2 className='text-center text-xl text-gray-700 mt-12'>
         Update Medicine
       </h2>
@@ -129,7 +129,7 @@ const UpdateMedicine = () => {
           Trade name
         </label>
         <input
-          className='inline-block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
+          className='inline-block border border-black bg-gray-100 rounded-sm px-2 py-1 sm:w-1/2 w-full'
           type='text'
           id='trade_name'
           name='trade_name'
@@ -141,7 +141,7 @@ const UpdateMedicine = () => {
           Generic name
         </label>
         <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 sm:w-1/2 w-full'
           type='text'
           id='generic_name'
           name='generic_name'
@@ -166,7 +166,7 @@ const UpdateMedicine = () => {
           Company name
         </label>
         <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 sm:w-1/2 w-full'
           type='text'
           id='company_name'
           name='company_name'
@@ -193,7 +193,7 @@ const UpdateMedicine = () => {
           Packet price
         </label>
         <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 sm:w-1/2 w-full'
           type='number'
           id='packet_price'
           name='packet_price'
@@ -204,7 +204,7 @@ const UpdateMedicine = () => {
           Size of packet
         </label>
         <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 sm:w-1/2 w-full'
           type='number'
           id='size_of_packet'
           name='size_of_packet'
@@ -242,7 +242,7 @@ const UpdateMedicine = () => {
           Discount price
         </label>
         <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 sm:w-1/2 w-full'
           type='number'
           id='discount_price'
           name='discount_price'
@@ -253,7 +253,7 @@ const UpdateMedicine = () => {
           Description
         </label>
         <textarea
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 sm:w-1/2 w-full'
           type=''
           id='description'
           name='description'
@@ -266,7 +266,7 @@ const UpdateMedicine = () => {
         </label>
 
         <input
-          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 w-1/2'
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 sm:w-1/2 w-full'
           type='text'
           id='medicine_type'
           name='medicine_type'

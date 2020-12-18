@@ -48,7 +48,7 @@ const AllMedicines = () => {
     // eslint-disable-next-line
   }, []);
   return (
-    <div style={{width: '1200px'}} className='mx-auto'>
+    <div className='mx-auto w-11/12'>
       <div className='flex'>
         <p className='my-2 mr-4'>
           Total medicines: {data !== undefined ? data.length : 0}

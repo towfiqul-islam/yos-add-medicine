@@ -1,0 +1,2 @@
+export const SHOW_UPDATE_MODAL = 'SHOW_UPDATE_MODAL';
+export const SHOW_ADD_MODAL = 'SHOW_ADD_MODAL';

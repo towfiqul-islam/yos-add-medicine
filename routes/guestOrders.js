@@ -90,7 +90,8 @@ router.put('/update_order_item/:id', async (req, res) => {
 });
 
 router.put('/update_order/:id', async (req, res) => {
-  if (req.body.delivery_status === 'completed') {
+  if (req.body.delivery_status === 'completed' && req.body.total_amount !== 0) {
+    req.body.payment_status = 'paid';
     req.body.delivered_at = new Date()
       .toISOString()
       .slice(0, 19)
@@ -107,9 +108,15 @@ router.put('/update_order/:id', async (req, res) => {
     req.body.discount_percentage = disc;
 
     req.body.amount_after_discount = disc_amount;
+    const row = await updateOrder(req.params.id, req.body);
+    res.json(row);
+  } else if (req.body.delivery_status === 'cancelled') {
+    req.body.payment_status = 'n/a';
+    req.body.total_amount = 0;
+    req.body.amount_after_discount = 0;
+    const row = await updateOrder(req.params.id, req.body);
+    res.json(row);
   }
-  const row = await updateOrder(req.params.id, req.body);
-  res.json(row);
 });
 
 router.get('/get_order_items/:guest_order_id', async (req, res) => {

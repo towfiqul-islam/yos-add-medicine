@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import history from '../history';
+import {discount} from '../utils';
 
 const GuestOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -36,7 +37,7 @@ const GuestOrders = () => {
             <th className='px-4 py-2 border border-gray-400'>Payment Status</th>
             <th className='px-4 py-2 border border-gray-400'>Total amount</th>
             <th className='px-4 py-2 border border-gray-400'>
-              Amount after disc - 3%
+              Amount after disc - {discount}%
             </th>
             <th className='px-4 py-2 border border-gray-400'>Update</th>
           </tr>

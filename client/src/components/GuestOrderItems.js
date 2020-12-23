@@ -3,6 +3,7 @@ import axios from 'axios';
 import UpdateOrderItemModal from './UpdateOrderItemModal';
 import AppContext from '../context/appContext';
 import AddOrderItemModal from './AddOrderItemModal';
+import {discount} from '../utils';
 
 const GuestOrderItems = ({id}) => {
   const [data, setData] = useState([]);
@@ -19,8 +20,13 @@ const GuestOrderItems = ({id}) => {
     setOrderItem(itemData);
   };
   const onDeleteItem = async itemId => {
-    await axios.delete(`/api/guest/delete_order_item/${itemId}`);
-    window.location.reload();
+    const confirm = prompt('Type yes to delete the item.', 'no');
+    if (confirm === 'yes') {
+      await axios.delete(`/api/guest/delete_order_item/${itemId}`);
+      window.location.reload();
+    } else {
+      // do nothing
+    }
   };
   useEffect(() => {
     getOrderItems();
@@ -29,7 +35,7 @@ const GuestOrderItems = ({id}) => {
   function getTotalAmount(data) {
     if (data) {
       const sum = data.reduce((acc, curr) => acc + curr.price, 0);
-      const discount_amount = (sum / 100) * 3; // 3 is discount percentage
+      const discount_amount = (sum / 100) * discount;
       const amount_after_discount = sum - discount_amount;
       return {sum, amount_after_discount};
     }
@@ -41,9 +47,11 @@ const GuestOrderItems = ({id}) => {
       {addModal && <AddOrderItemModal order_item={orderItem} />}
 
       <div className='flex justify-between items-center'>
-        <h2 className='font-semibold my-4 text-xl'>Ordered Items</h2>
+        {data !== undefined && data.length > 0 && (
+          <h2 className='font-semibold my-4 text-xl'>Ordered Items</h2>
+        )}
         <button
-          className='bg-green-400 px-2 py-1 h-full rounded block text-sm'
+          className='bg-green-400 px-2 py-1 h-full rounded block text-sm my-4'
           onClick={() => openAddModal(true)}
         >
           Add Order Item

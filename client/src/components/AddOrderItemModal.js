@@ -51,13 +51,13 @@ const AddOrderItemModal = ({order_item}) => {
         className='fixed sm:w-1/3 w-11/12  pb-8 px-4 z-50 text-lg mx-auto bg-white text-gray-700  rounded'
       >
         <div className='flex justify-center w-full'>
-          <div>
-            <h2 className='my-4'>Add order item</h2>
+          <div className=' w-full'>
+            <h2 className='my-4 text-center'>Add order item</h2>
             <label className='block mt-4' htmlFor='item_name'>
               Item Name
             </label>
             <input
-              className='bg-gray-400 px-2 py-1'
+              className='bg-gray-300 px-2 py-1 w-11/12'
               type='text'
               id='item_name'
               name='item_name'
@@ -68,7 +68,7 @@ const AddOrderItemModal = ({order_item}) => {
               Quantity
             </label>
             <input
-              className='bg-gray-400 px-2 py-1'
+              className='bg-gray-300 px-2 py-1 w-11/12'
               type='number'
               id='quantity'
               name='quantity'
@@ -79,7 +79,7 @@ const AddOrderItemModal = ({order_item}) => {
               Unit Price
             </label>
             <input
-              className='bg-gray-400 px-2 py-1'
+              className='bg-gray-300 px-2 py-1 w-11/12'
               type='number'
               id='price'
               name='price'
@@ -88,7 +88,7 @@ const AddOrderItemModal = ({order_item}) => {
             />
             <button
               onClick={onAdd}
-              className='bg-blue-300 rounded mt-4 px-2 py-1 block mx-auto'
+              className='bg-blue-300 rounded mt-4 px-2 py-1 block mx-auto text-sm font-semibold'
             >
               Add Order item
             </button>

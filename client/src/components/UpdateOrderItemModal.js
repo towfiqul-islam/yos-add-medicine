@@ -45,13 +45,13 @@ const UpdateOrderItemModal = ({order_item}) => {
         className='fixed sm:w-1/3 w-11/12  pb-8 px-4 z-50 text-lg mx-auto bg-white text-gray-700  rounded'
       >
         <div className='flex justify-center w-full'>
-          <div>
-            <h2 className='my-4'>Update order - {order_item.id}</h2>
+          <div className='w-full'>
+            <h2 className='my-4 text-center'>Update order - {order_item.id}</h2>
             <label className='block mt-4' htmlFor='item_name'>
               Item Name
             </label>
             <input
-              className='bg-gray-400 px-2 py-1'
+              className='bg-gray-300 px-2 py-1 w-11/12'
               type='text'
               id='item_name'
               name='item_name'
@@ -62,7 +62,7 @@ const UpdateOrderItemModal = ({order_item}) => {
               Quantity
             </label>
             <input
-              className='bg-gray-400 px-2 py-1'
+              className='bg-gray-300 px-2 py-1 w-11/12'
               type='number'
               id='quantity'
               name='quantity'
@@ -73,7 +73,7 @@ const UpdateOrderItemModal = ({order_item}) => {
               Unit Price
             </label>
             <input
-              className='bg-gray-400 px-2 py-1'
+              className='bg-gray-300 px-2 py-1 w-11/12'
               type='number'
               id='price'
               name='price'
@@ -82,7 +82,7 @@ const UpdateOrderItemModal = ({order_item}) => {
             />
             <button
               onClick={onUpdate}
-              className='bg-blue-300 rounded mt-4 px-2 py-1 block mx-auto'
+              className='bg-blue-300 rounded mt-4 px-2 py-1 block mx-auto font-semibold text-sm'
             >
               Update
             </button>

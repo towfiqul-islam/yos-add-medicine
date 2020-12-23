@@ -9,7 +9,7 @@ const UpdateOrder = () => {
   const [singleOrder, setSingleOrder] = useState({
     guest_name: '',
     delivery_status: '',
-    payment_status: '',
+    // payment_status: '',
     customer_prescription: '',
     total_amount: 0,
   });
@@ -17,7 +17,7 @@ const UpdateOrder = () => {
   const {
     customer_name,
     delivery_status,
-    payment_status,
+    // payment_status,
     customer_prescription,
     total_amount,
   } = singleOrder;
@@ -28,7 +28,7 @@ const UpdateOrder = () => {
       //   ...res.data.order,
       customer_name: res.data.order.customer_name,
       delivery_status: res.data.order.delivery_status,
-      payment_status: res.data.order.payment_status,
+      // payment_status: res.data.order.payment_status,
       customer_prescription: res.data.order.customer_prescription,
       total_amount: res.data.order.total_amount,
     });
@@ -84,7 +84,7 @@ const UpdateOrder = () => {
             <option value='cancelled'>Cancelled</option>
           </select>
           {/* Delivery status */}
-          <label className='block mt-4' htmlFor='payment_status'>
+          {/* <label className='block mt-4' htmlFor='payment_status'>
             Payment Status
           </label>
           <select
@@ -97,7 +97,7 @@ const UpdateOrder = () => {
             <option value='pending'>Pending</option>
             <option value='paid'>Paid</option>
             <option value='n/a'>N/A</option>
-          </select>
+          </select> */}
 
           <label className='block mt-4' htmlFor='prescription'>
             Customer prescriotion

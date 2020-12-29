@@ -50,6 +50,18 @@ function getMedByMedicineType(name) {
     });
   });
 }
+function getUnitPrice(name) {
+  return new Promise(function (resolve, reject) {
+    const sql = `SELECT unit_price FROM medicines WHERE trade_name= '${name}'`;
+    connection.query(sql, (err, results) => {
+      resolve(results[0]);
+    });
+  });
+}
+router.get('/get_unit_price/:name', async (req, res) => {
+  const data = await getUnitPrice(req.params.name);
+  res.send(data);
+});
 router.get('/get_all', async (req, res) => {
   const data = await getMeds();
   res.send(data);

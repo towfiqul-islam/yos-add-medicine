@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import AppContext from '../context/appContext';
 import axios from 'axios';
 
@@ -6,11 +6,14 @@ const UpdateOrderItemModal = ({order_item}) => {
   const appContext = useContext(AppContext);
   const {openUpdateModal} = appContext;
 
+  const [unitPrice, setUnitPrice] = useState(0);
+
   const [orderItem, setOrderItem] = useState({
     ...order_item,
+    price: unitPrice,
   });
 
-  const {id, item_name, quantity, price} = orderItem;
+  const {id, item_name, quantity} = orderItem;
 
   const onChange = e => {
     setOrderItem({...orderItem, [e.target.name]: e.target.value});
@@ -20,12 +23,28 @@ const UpdateOrderItemModal = ({order_item}) => {
     const itemData = {
       item_name: item_name,
       quantity: parseInt(quantity),
-      price: parseFloat(price),
+      price: unitPrice,
     };
     await axios.put(`/api/guest/update_order_item/${id}`, itemData);
     openUpdateModal(false);
     window.location.reload();
   };
+
+  const getUnitPrice = async () => {
+    const res = await axios.get(`/get_unit_price/${item_name}`);
+    // console.log(res.data);
+    // return res.data.unit_price;
+    setUnitPrice(res.data.unit_price);
+  };
+
+  useEffect(() => {
+    getUnitPrice();
+    setOrderItem({
+      ...orderItem,
+      price: unitPrice,
+    });
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div>
@@ -46,7 +65,9 @@ const UpdateOrderItemModal = ({order_item}) => {
       >
         <div className='flex justify-center w-full'>
           <div className='w-full'>
-            <h2 className='my-4 text-center'>Update order - {order_item.id}</h2>
+            <h2 className='my-4 text-center'>
+              Update order Item - {order_item.id}
+            </h2>
             <label className='block mt-4' htmlFor='item_name'>
               Item Name
             </label>
@@ -69,7 +90,15 @@ const UpdateOrderItemModal = ({order_item}) => {
               onChange={onChange}
               value={quantity}
             />
-            <label className='block mt-4' htmlFor='price'>
+            <div className='mt-2'>
+              <p className='text-gray-600'>
+                Unit Price: {unitPrice > 0 && unitPrice}
+              </p>
+              <p className='mt-2'>
+                Total Price: {unitPrice > 0 && unitPrice * quantity}
+              </p>
+            </div>
+            {/* <label className='block mt-4' htmlFor='price'>
               Unit Price
             </label>
             <input
@@ -79,7 +108,7 @@ const UpdateOrderItemModal = ({order_item}) => {
               name='price'
               onChange={onChange}
               value={price}
-            />
+            /> */}
             <button
               onClick={onUpdate}
               className='bg-blue-300 rounded mt-4 px-2 py-1 block mx-auto font-semibold text-sm'

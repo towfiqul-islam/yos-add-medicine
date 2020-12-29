@@ -90,32 +90,43 @@ router.put('/update_order_item/:id', async (req, res) => {
 });
 
 router.put('/update_order/:id', async (req, res) => {
-  if (req.body.delivery_status === 'completed' && req.body.total_amount !== 0) {
-    req.body.payment_status = 'paid';
-    req.body.delivered_at = new Date()
-      .toISOString()
-      .slice(0, 19)
-      .replace('T', ' ');
+  try {
+    if (
+      req.body.delivery_status === 'completed' &&
+      req.body.total_amount !== 0
+    ) {
+      req.body.payment_status = 'paid';
+      req.body.delivered_at = new Date()
+        .toISOString()
+        .slice(0, 19)
+        .replace('T', ' ');
 
-    // calculate total amount with discount
-    let total_amount = req.body.total_amount;
-    let disc_amount = req.body.amount_after_discount;
-    let disc = process.env.DISCOUNT;
+      // calculate total amount with discount
+      let total_amount = req.body.total_amount;
+      let disc_amount = req.body.amount_after_discount;
+      let disc = process.env.DISCOUNT;
 
-    let discAmount = (total_amount / 100) * disc;
-    disc_amount = total_amount - discAmount;
+      let discAmount = (total_amount / 100) * disc;
+      disc_amount = total_amount - discAmount;
 
-    req.body.discount_percentage = disc;
+      req.body.discount_percentage = disc;
 
-    req.body.amount_after_discount = disc_amount;
-    const row = await updateOrder(req.params.id, req.body);
-    res.json(row);
-  } else if (req.body.delivery_status === 'cancelled') {
-    req.body.payment_status = 'n/a';
-    req.body.total_amount = 0;
-    req.body.amount_after_discount = 0;
-    const row = await updateOrder(req.params.id, req.body);
-    res.json(row);
+      req.body.amount_after_discount = disc_amount;
+      const row = await updateOrder(req.params.id, req.body);
+      res.json(row);
+    } else if (req.body.delivery_status === 'cancelled') {
+      req.body.payment_status = 'n/a';
+      req.body.total_amount = 0;
+      req.body.amount_after_discount = 0;
+      const row = await updateOrder(req.params.id, req.body);
+      res.json(row);
+    } else {
+      res.json({
+        msg: 'Order cannot be updated',
+      });
+    }
+  } catch (err) {
+    res.status(400).send('Something went wrong!!!');
   }
 });
 

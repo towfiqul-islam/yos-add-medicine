@@ -1,36 +1,51 @@
-import Axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import history from '../history';
 import axios from 'axios';
 import GuestOrderItems from './GuestOrderItems';
+import {discount} from '../utils';
 
 const UpdateOrder = () => {
+  const {id} = useParams();
+
+  const [totalAmount, setTotalAmount] = useState(0);
+  async function getOrderItems() {
+    const res = await axios.get(`/api/guest/get_order_items/${id}`);
+
+    getTotalAmount(res.data.orderItems);
+  }
+  function getTotalAmount(data) {
+    if (data) {
+      const sum = data.reduce((acc, curr) => acc + curr.price, 0);
+      const discount_amount = (sum / 100) * discount;
+      const amount_after_discount = sum - discount_amount;
+      setTotalAmount(Math.round((sum + Number.EPSILON) * 100) / 100);
+      return {sum, amount_after_discount};
+    }
+  }
   const [singleOrder, setSingleOrder] = useState({
     guest_name: '',
     delivery_status: '',
-    // payment_status: '',
+
     customer_prescription: '',
-    total_amount: 0,
+    total_amount: totalAmount,
   });
   const [image, setImage] = useState('');
   const {
     customer_name,
     delivery_status,
-    // payment_status,
+
     customer_prescription,
-    total_amount,
   } = singleOrder;
-  const {id} = useParams();
+
   async function getSingleOrder(id) {
-    const res = await Axios.get(`/api/guest/get_single_order/${id}`);
+    const res = await axios.get(`/api/guest/get_single_order/${id}`);
     setSingleOrder({
-      //   ...res.data.order,
       customer_name: res.data.order.customer_name,
       delivery_status: res.data.order.delivery_status,
-      // payment_status: res.data.order.payment_status,
+
       customer_prescription: res.data.order.customer_prescription,
-      total_amount: res.data.order.total_amount,
+      total_amount: totalAmount > 0 && totalAmount,
     });
   }
   const onChange = e => {
@@ -52,14 +67,26 @@ const UpdateOrder = () => {
     setImage('');
   };
   const onUpdate = async () => {
-    await Axios.put(`/api/guest/update_order/${id}`, singleOrder);
-    alert('Order updated');
-    history.push('/guest-orders');
+    try {
+      const res = await axios.put(`/api/guest/update_order/${id}`, singleOrder);
+      if (res.data.msg !== 'Order cannot be updated') {
+        alert('Order updated');
+        history.push('/guest-orders');
+      } else {
+        alert('Order cannot be updated');
+      }
+    } catch (err) {
+      alert('Something went wrong!! Order could not be updated');
+      console.error(err);
+    }
   };
   useEffect(() => {
     getSingleOrder(id);
+    getOrderItems();
+    // console.log(totalAmount);
+
     // eslint-disable-next-line
-  }, []);
+  }, [totalAmount]);
   return (
     <div className='sm:w-3/4 w-11/12 mx-auto'>
       <div className='flex flex-wrap justify-between'>
@@ -123,8 +150,14 @@ const UpdateOrder = () => {
           {customer_prescription !== '' && image !== '' && (
             <div>Prescription uploading ...</div>
           )}
-
-          <label className='block mt-4' htmlFor='total_amount'>
+          <br />
+          <div className='mt-4 bg-gray-800 text-gray-100 inline-block px-2 py-1 rounded'>
+            <p>
+              Total Amount:{' '}
+              {Math.round((totalAmount + Number.EPSILON) * 100) / 100}
+            </p>
+          </div>
+          {/* <label className='block mt-4' htmlFor='total_amount'>
             Update Total Amount
           </label>
           <input
@@ -135,7 +168,7 @@ const UpdateOrder = () => {
             onChange={onChange}
             name='total_amount'
             value={total_amount}
-          />
+          /> */}
           {image !== '' && customer_prescription === '' ? (
             <button className='px-4 py-1 bg-blue-100 text-gray-300 rounded block mt-6 cursor-default'>
               Update order

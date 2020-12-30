@@ -88,7 +88,7 @@ const UpdateOrder = () => {
     // eslint-disable-next-line
   }, [totalAmount]);
   return (
-    <div className='sm:w-3/4 w-11/12 mx-auto'>
+    <div className='sm:w-3/4 w-11/12 mx-auto mb-12'>
       <div className='flex flex-wrap justify-between'>
         <div>
           <h2 className='my-5 text-xl'>
@@ -151,7 +151,7 @@ const UpdateOrder = () => {
             <div>Prescription uploading ...</div>
           )}
           <br />
-          <div className='mt-4 bg-gray-800 text-gray-100 inline-block px-2 py-1 rounded'>
+          <div className='mt-4 bg-gray-300 text-gray-900 inline-block px-2 py-1 rounded'>
             <p>
               Total Amount:{' '}
               {Math.round((totalAmount + Number.EPSILON) * 100) / 100}
@@ -170,12 +170,12 @@ const UpdateOrder = () => {
             value={total_amount}
           /> */}
           {image !== '' && customer_prescription === '' ? (
-            <button className='px-4 py-1 bg-blue-100 text-gray-300 rounded block mt-6 cursor-default'>
+            <button className='px-8 py-2 bg-blue-100 text-gray-300 rounded block mt-6 cursor-default'>
               Update order
             </button>
           ) : (
             <button
-              className='px-4 py-1 bg-blue-300 rounded block mt-6'
+              className='px-8 py-2 bg-blue-400 rounded block mt-6'
               onClick={onUpdate}
             >
               Update order

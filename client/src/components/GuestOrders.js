@@ -11,7 +11,12 @@ const GuestOrders = () => {
     setOrders(res.data.orders);
   }
   useEffect(() => {
-    getAllOrders();
+    const login = localStorage.getItem('login');
+    if (login === 'success') {
+      getAllOrders();
+    } else {
+      history.push('/login');
+    }
     // eslint-disable-next-line
   }, []);
   const onUpdateOrder = id => {

@@ -81,8 +81,13 @@ const UpdateOrder = () => {
     }
   };
   useEffect(() => {
-    getSingleOrder(id);
-    getOrderItems();
+    const login = localStorage.getItem('login');
+    if (login === 'success') {
+      getSingleOrder(id);
+      getOrderItems();
+    } else {
+      history.push('/login');
+    }
     // console.log(totalAmount);
 
     // eslint-disable-next-line

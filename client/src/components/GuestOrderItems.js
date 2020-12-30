@@ -4,6 +4,7 @@ import UpdateOrderItemModal from './UpdateOrderItemModal';
 import AppContext from '../context/appContext';
 import AddOrderItemModal from './AddOrderItemModal';
 import {discount} from '../utils';
+import history from '../history';
 
 const GuestOrderItems = ({id}) => {
   const [data, setData] = useState([]);
@@ -29,7 +30,13 @@ const GuestOrderItems = ({id}) => {
     }
   };
   useEffect(() => {
-    getOrderItems();
+    const login = localStorage.getItem('login');
+    if (login === 'success') {
+      getOrderItems();
+    } else {
+      history.push('/login');
+    }
+
     // eslint-disable-next-line
   }, []);
   function getTotalAmount(data) {

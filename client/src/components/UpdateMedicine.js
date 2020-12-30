@@ -119,6 +119,12 @@ const UpdateMedicine = () => {
     }
     setMed({...med, over_the_counter: e.target.value});
   };
+  useEffect(() => {
+    const login = localStorage.getItem('login');
+    if (login !== 'success') {
+      history.push('/login');
+    }
+  });
   return (
     <div className='mx-auto sm:w-3/4 w-11/12'>
       <h2 className='text-center text-xl text-gray-700 mt-12'>

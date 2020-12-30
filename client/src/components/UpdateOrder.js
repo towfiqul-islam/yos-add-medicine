@@ -127,7 +127,7 @@ const UpdateOrder = () => {
           </select> */}
 
           <label className='block mt-4' htmlFor='prescription'>
-            Customer prescriotion
+            Customer prescription
           </label>
           <input type='file' onChange={onFileChange} />
 
@@ -139,8 +139,8 @@ const UpdateOrder = () => {
             <div>
               <img
                 className='border mt-2'
-                width='100px'
-                height='100px'
+                width='500px'
+                height='500px'
                 src={customer_prescription}
                 alt=''
               />

@@ -7,6 +7,7 @@ const update_med = require('../routes/updateMed');
 const delete_med = require('../routes/deleteMed');
 const login = require('../routes/login');
 const guestOrders = require('../routes/guestOrders');
+const products = require('../routes/products');
 
 module.exports = function (app) {
   app.use(cors());
@@ -18,4 +19,5 @@ module.exports = function (app) {
   app.use('/delete', delete_med);
   app.use('/login', login);
   app.use('/api/guest', guestOrders);
+  app.use('/api/products', products);
 };

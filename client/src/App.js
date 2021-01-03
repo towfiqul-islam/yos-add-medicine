@@ -11,6 +11,8 @@ import GuestOrders from './components/GuestOrders';
 import UpdateOrder from './components/UpdateOrder';
 import AppState from './context/AppState';
 import AddProduct from './components/products/AddProduct';
+import AllProducts from './components/products/AllProducts';
+import EditProduct from './components/products/EditProduct';
 
 const App = () => {
   return (
@@ -21,6 +23,8 @@ const App = () => {
           <Route exact path='/' component={AddMedicine} />
           <Route exact path='/all' component={AllMedicines} />
           <Route exact path='/add-product' component={AddProduct} />
+          <Route exact path='/all-products' component={AllProducts} />
+          <Route exact path='/edit-product/:id' component={EditProduct} />
           <Route exact path='/update/:id' component={UpdateMedicine} />
           <Route exact path='/update-order/:id' component={UpdateOrder} />
           <Route exact path='/guest-orders' component={GuestOrders} />

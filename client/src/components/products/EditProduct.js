@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import React, {useState, useEffect} from 'react';
+import {useParams} from 'react-router-dom';
 import history from '../../history';
+import axios from 'axios';
 
-const AddProduct = () => {
+const EditProduct = () => {
+  const {id} = useParams();
   const [product, setProduct] = useState({
     product_name: '',
     company_name: '',
@@ -24,6 +26,10 @@ const AddProduct = () => {
     product_image,
   } = product;
   const [companyNames, setCompanyNames] = useState([]);
+  async function getSingleProduct(id) {
+    const res = await axios.get(`/api/products/get_single/${id}`);
+    setProduct(res.data.single_product);
+  }
   const onChange = async e => {
     setProduct({...product, [e.target.name]: e.target.value});
     if (e.target.name === 'company_name') {
@@ -44,9 +50,9 @@ const AddProduct = () => {
         price !== '' &&
         product_category !== ''
       ) {
-        const res = await axios.post('/api/products/add', product);
-        if (res.data.id) {
-          alert('Product added!!!');
+        const res = await axios.put(`/api/products/update/${id}`, product);
+        if (res.data.row) {
+          alert('Product updated!!!');
           window.location.reload();
         }
       } else {
@@ -72,14 +78,19 @@ const AddProduct = () => {
   };
   useEffect(() => {
     const login = localStorage.getItem('login');
-    if (login !== 'success') {
+    if (login === 'success') {
+      getSingleProduct(id);
+    } else {
       history.push('/login');
     }
+
     // eslint-disable-next-line
   }, []);
   return (
     <div className='mx-auto sm:w-3/4 w-11/12'>
-      <h2 className='text-center text-xl text-gray-700 mt-4'>Add Product</h2>
+      <h2 className='text-center text-xl text-gray-700 mt-4'>
+        Update Product - {id}
+      </h2>
       <form id='myForm' onSubmit={onSubmit}>
         <label className='mr-2 mt-8 block' htmlFor='product_name'>
           Product name
@@ -142,6 +153,30 @@ const AddProduct = () => {
           value={price}
           onChange={onChange}
         />
+        <label className='mr-2 mt-8 block' htmlFor='discount'>
+          Discount Percentage
+        </label>
+        <input
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 sm:w-1/2 w-full'
+          type='number'
+          id='discount'
+          name='discount'
+          value={discount}
+          onChange={onChange}
+        />
+
+        <label className='mr-2 mt-8 block' htmlFor='product_desc'>
+          Product description
+        </label>
+        <textarea
+          className='block border border-black bg-gray-100 rounded-sm px-2 py-1 sm:w-1/2 w-full'
+          type=''
+          id='product_desc'
+          name='product_desc'
+          value={product_desc}
+          onChange={onChange}
+          rows='10'
+        ></textarea>
 
         <label htmlFor='product_category' className='mr-2 mt-8 block'>
           Product category
@@ -211,4 +246,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default EditProduct;

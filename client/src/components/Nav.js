@@ -34,6 +34,9 @@ const Nav = () => {
           <Link className='mr-12' to='/add-product'>
             Add Product
           </Link>
+          <Link className='mr-12' to='/all-products'>
+            All Products
+          </Link>
           <Link className='mr-12' to='/guest-orders'>
             Guest Orders
           </Link>
@@ -52,6 +55,13 @@ const Nav = () => {
             to='/add-product'
           >
             Add Product
+          </Link>
+          <Link
+            onClick={() => setMenu(false)}
+            className='mt-4 block'
+            to='/all-products'
+          >
+            All Products
           </Link>
           <Link
             onClick={() => setMenu(false)}

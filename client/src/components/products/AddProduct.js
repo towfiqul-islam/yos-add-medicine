@@ -16,10 +16,10 @@ const AddProduct = () => {
   const {
     product_name,
     company_name,
-    product_desc,
+    // product_desc,
     packet_size,
     price,
-    discount,
+    // discount,
     product_category,
     product_image,
   } = product;
@@ -157,6 +157,9 @@ const AddProduct = () => {
           <option value='covid-care'>Covid Care</option>
           <option value='diabetes-care'>Diabetes Care</option>
           <option value='personal-care'>Personal Care & Hygiene</option>
+          <option value='men-wellness'>Men Wellness</option>
+          <option value='women-wellness'>Women Wellness</option>
+          <option value='sexual-wellness'>Sexual Wellness</option>
 
           <option value='nutrition-supplements'>
             Nutrition & Health Supplements

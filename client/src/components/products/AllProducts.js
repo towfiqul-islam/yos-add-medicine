@@ -64,7 +64,8 @@ const AllProducts = () => {
             <th className='px-4 py-2 border border-gray-400'>Product name</th>
 
             <th className='px-4 py-2 border border-gray-400'>Company name</th>
-            <th className='px-4 py-2 border border-gray-400'>Price</th>
+            <th className='px-4 py-2 border border-gray-400'>Packet Price</th>
+            <th className='px-4 py-2 border border-gray-400'>Unit Price</th>
             <th className='px-4 py-2 border border-gray-400'>Discount</th>
             <th className='px-4 py-2 border border-gray-400'>
               Product category
@@ -89,6 +90,9 @@ const AllProducts = () => {
                 </td>
                 <td className='px-4 py-2 border border-gray-400'>
                   {d.price} Tk
+                </td>
+                <td className='px-4 py-2 border border-gray-400'>
+                  {d.price / parseInt(d.packet_size)} Tk
                 </td>
                 <td className='px-4 py-2 border border-gray-400'>
                   {d.discount}%

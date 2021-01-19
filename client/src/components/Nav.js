@@ -40,6 +40,9 @@ const Nav = () => {
           <Link className='mr-12' to='/guest-orders'>
             Guest Orders
           </Link>
+          <Link className='mr-12' to='/user-orders'>
+            User Orders
+          </Link>
           <button onClick={onLogout}>Logout</button>
         </div>
         <div className={` ${menu ? 'block' : 'hidden'}`}>
@@ -69,6 +72,13 @@ const Nav = () => {
             to='/guest-orders'
           >
             Guest Orders
+          </Link>
+          <Link
+            onClick={() => setMenu(false)}
+            className='mt-4 block'
+            to='/user-orders'
+          >
+            User Orders
           </Link>
           <button className='mt-4' onClick={onLogout}>
             Logout

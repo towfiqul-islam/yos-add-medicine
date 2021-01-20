@@ -25,6 +25,7 @@ const UpdateUserOrder = () => {
     }
   }
   const [singleOrder, setSingleOrder] = useState({
+    user_id: '',
     customer_name: '',
     delivery_status: '',
 
@@ -33,6 +34,7 @@ const UpdateUserOrder = () => {
   });
   const [image, setImage] = useState('');
   const {
+    user_id,
     customer_name,
     delivery_status,
 
@@ -42,10 +44,11 @@ const UpdateUserOrder = () => {
   async function getSingleOrder(id) {
     const res = await axios.get(`/api/user/get_single_order/${id}`);
     setSingleOrder({
+      user_id: res.data.order.user_id,
       customer_name: res.data.order.first_name,
       delivery_status: res.data.order.delivery_status,
 
-      prescription: res.data.order.customer_prescription,
+      prescription: res.data.order.prescription,
       total_amount: totalAmount > 0 && totalAmount,
     });
   }
@@ -70,6 +73,7 @@ const UpdateUserOrder = () => {
   const onUpdate = async () => {
     try {
       const data = {
+        user_id: user_id,
         delivery_status: delivery_status,
 
         prescription: prescription,

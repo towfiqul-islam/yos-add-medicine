@@ -92,6 +92,16 @@ function addOrderItem(fields) {
   });
 }
 
+function checkNumberOfOrders(user_id) {
+  return new Promise(function (resolve, reject) {
+    const sql = `SELECT COUNT(user_id) AS ordered FROM user_orders WHERE user_id=${user_id}`;
+    connection.query(sql, (err, results) => {
+      if (err) throw err;
+      resolve(results);
+    });
+  });
+}
+
 router.post('/add_order_item', async (req, res) => {
   req.body.price = req.body.quantity * req.body.price;
   const id = await addOrderItem(req.body);
@@ -109,12 +119,54 @@ router.put('/update_order_item/:id', async (req, res) => {
   res.json({row});
 });
 
+// router.get('/get_number_of_orders/:user_id', async (req, res) => {
+//   const ordered = await checkNumberOfOrders(req.body.user_id);
+//   res.json({ordered})
+// })
+
+function updateYosWallet(user_id) {
+  return new Promise(function (resolve, reject) {
+    const sql = `UPDATE users SET yos_wallet=100 WHERE id=${user_id}`;
+    connection.query(sql, (err, results) => {
+      if (err) throw err;
+      resolve(results.affectedRows);
+    });
+  });
+}
+
+function updateTotalPurchase(user_id, total) {
+  return new Promise(function (resolve, reject) {
+    const sql = `UPDATE users SET total_purchase=${total} WHERE id=${user_id}`;
+    connection.query(sql, (err, results) => {
+      if (err) throw err;
+      resolve(results.affectedRows);
+    });
+  });
+}
+
+function getTotalPurchase(user_id) {
+  return new Promise(function (resolve, reject) {
+    const sql = `SELECT SUM(amount_after_discount) AS total_purchase FROM user_orders WHERE user_id=${user_id} AND payment_status='paid';`;
+    connection.query(sql, (err, results) => {
+      if (err) throw err;
+      resolve(results);
+    });
+  });
+}
+
 router.put('/update_order/:id', async (req, res) => {
   try {
     if (
       req.body.delivery_status === 'completed' &&
       req.body.total_amount !== 0
     ) {
+      // check number of orders by the user
+      const number_of_orders = await checkNumberOfOrders(req.body.user_id);
+
+      // add bonus if number of order is only 1
+      if (number_of_orders[0].ordered === 1) {
+        await updateYosWallet(req.body.user_id);
+      }
       req.body.payment_status = 'paid';
       req.body.delivered_at = new Date()
         .toISOString()
@@ -133,12 +185,19 @@ router.put('/update_order/:id', async (req, res) => {
 
       req.body.amount_after_discount = disc_amount;
       const row = await updateOrder(req.params.id, req.body);
+      // Update total purchase
+      const total_purchase = await getTotalPurchase(req.body.user_id);
+      await updateTotalPurchase(
+        req.body.user_id,
+        total_purchase[0].total_purchase,
+      );
       res.json(row);
     } else if (req.body.delivery_status === 'cancelled') {
       req.body.payment_status = 'n/a';
       req.body.total_amount = 0;
       req.body.amount_after_discount = 0;
       const row = await updateOrder(req.params.id, req.body);
+
       res.json(row);
     } else {
       res.json({

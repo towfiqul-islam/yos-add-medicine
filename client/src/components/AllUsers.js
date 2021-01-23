@@ -48,7 +48,7 @@ const AllUsers = () => {
                   {o.first_name} {o.last_name}
                 </td>
                 <td className='px-4 py-2 border border-gray-400'>{o.phone}</td>
-                <td className='px-4 py-2 border border-gray-400 w-32'>
+                <td className='px-4 py-2 border border-gray-400 w-64'>
                   {o.address}
                 </td>
                 <td className='px-4 py-2 border border-gray-400'>{o.email}</td>

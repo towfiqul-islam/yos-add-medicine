@@ -9,6 +9,7 @@ const login = require('../routes/login');
 const guestOrders = require('../routes/guestOrders');
 const userOrders = require('../routes/userOrders');
 const products = require('../routes/products');
+const users = require('../routes/users');
 
 module.exports = function (app) {
   app.use(cors());
@@ -16,6 +17,7 @@ module.exports = function (app) {
   app.use(express.urlencoded({extended: true}));
   app.use('/', add_med);
   app.use('/', get_med);
+  app.use('/', users);
   app.use('/update', update_med);
   app.use('/delete', delete_med);
   app.use('/login', login);

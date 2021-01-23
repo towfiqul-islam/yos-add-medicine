@@ -15,6 +15,7 @@ import AllProducts from './components/products/AllProducts';
 import EditProduct from './components/products/EditProduct';
 import UserOrders from './components/user_orders/UserOrders';
 import UpdateUserOrder from './components/user_orders/UpdateUserOrder';
+import AllUsers from './components/AllUsers';
 
 const App = () => {
   return (
@@ -37,6 +38,7 @@ const App = () => {
           <Route exact path='/guest-orders' component={GuestOrders} />
           <Route exact path='/user-orders' component={UserOrders} />
           <Route exact path='/login' component={Login} />
+          <Route exact path='/all-users' component={AllUsers} />
         </Switch>
       </Router>
     </AppState>
